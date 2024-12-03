@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS booking (
+    bookingId INTEGER       PRIMARY KEY AUTOINCREMENT,
+    event     TEXT NOT NULL
+)

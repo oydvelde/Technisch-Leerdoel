@@ -1,8 +1,34 @@
+version: '3.8'
 services:
   sqlite:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-sqlite
     volumes:
       - ./data:/data
     stdin_open: true
     tty: true
+  
+  backend:
+    container_name: booking-service-backend
+    build:
+      dockerfile: Dockerfile-back-end
+    volumes:
+      - ./data:/data
+    ports:
+      - "6060:6060"
+    networks:
+      - technischleerdoel
+  frontend:
+    container_name: booking-service-frontend
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile-frontend
+    ports:
+      - "9090:9090"
+    networks:
+      - technischleerdoel
+
+
+networks:
+  technischleerdoel:
+    external: true

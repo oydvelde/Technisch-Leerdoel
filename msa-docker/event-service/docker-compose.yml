@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  mssql-server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    build:
+      dockerfile: containers/dockerfiles/Dockerfile-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+    ports:
+      - "1433:1433"
+    container_name: mssql-server
+    networks:
+      - technischleerdoel
+  springboot:
+    platform: "linux/amd64"
+    container_name: event-service-springboot
+    build:
+      dockerfile: containers/dockerfiles/Dockerfile-springboot
+    depends_on:
+      - mssql-server
+    environment:
+      - SA_PASSWORD=${SA_PASSWORD}
+    ports:
+      - "5050:5050"
+    networks:
+      - technischleerdoel
+  vuejs:
+    build:
+      dockerfile: containers/dockerfiles/Dockerfile-vuejs
+    ports:
+      - "8080:8080"
+
+networks:
+  technischleerdoel:
+    external: true

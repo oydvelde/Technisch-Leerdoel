@@ -1,0 +1,19 @@
+FROM mcr.microsoft.com/mssql/server:2019-latest
+
+USER root
+
+RUN mkdir -p /app
+WORKDIR /app
+EXPOSE 1433
+
+RUN apt-get -y update
+
+COPY ./containers/mssql-server.sh ./setup/startup.sh
+
+COPY ./SQL/DDL-Script.sql ./sql/ddl-script.sql
+
+COPY ./SQL/Insert-Script.sql ./sql/inserts.sql
+
+COPY ./SQL/constraints ./sql/constraints
+
+ENTRYPOINT [ "sh", "./setup/startup.sh" ]

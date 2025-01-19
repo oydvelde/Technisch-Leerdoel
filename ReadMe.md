@@ -1,0 +1,3 @@
+## Gebruik
+- Voordat de docker-compose.yml's gerunt worden moet er eerst een docker netwerk aangemaakt worden genaamd: 'technischleerdoel'. Over dit netwerk communiceren de docker containers, mist dit network dan zal de applicatie ook niet werken.
+- Als dit netwerk bestaat kunnen de docker-compose.yml's uitgevoerd worden door in de command prompts van de twee services `docker compose up --build` uit te voeren.
